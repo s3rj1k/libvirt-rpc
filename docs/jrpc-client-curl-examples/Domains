@@ -1,0 +1,38 @@
+Function: Domains(Search string) ([]string, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Domains",
+  "params": {
+    "Search": ""
+  },
+  "id": "5e8a2332-18a5-42eb-b58e-ca53f031e2d6"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Domains",
+  "params": {
+    "Search": ""
+  },
+  "id": "5e8a2332-18a5-42eb-b58e-ca53f031e2d6"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "5e8a2332-18a5-42eb-b58e-ca53f031e2d6",
+  "result": [
+    "ubuntu-16.04"
+  ]
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "5e8a2332-18a5-42eb-b58e-ca53f031e2d6",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

@@ -1,0 +1,27 @@
+ Snapshot (help keyword 'snapshot'):
+    snapshot-create                Create a snapshot from XML
+    snapshot-create-as             Create a snapshot from a set of args
+    snapshot-current               Get or set the current snapshot
+    snapshot-delete                Delete a domain snapshot
+    snapshot-dumpxml               Dump XML for a domain snapshot
+    snapshot-edit                  edit XML for a snapshot
+    snapshot-info                  snapshot information
+    snapshot-list                  List snapshots for a domain
+    snapshot-parent                Get the name of the parent of a snapshot
+    snapshot-revert                Revert a domain to a snapshot
+
+# Cold Snapshot
+virsh snapshot-create-as --domain DOMAIN_NAME --name SNAP_NAME --atomic
+
+# Hot Snapshot
+virsh snapshot-create-as --domain DOMAIN_NAME --name SNAP_NAME --disk-only --quiesce --atomic
+
+# List Snapshot
+virsh snapshot-list --domain DOMAIN_NAME
+qemu-img snapshot -l /var/lib/libvirt/images/DOMAIN_NAME.qcow2
+
+# Delete internal snapshot and it's children
+virsh snapshot-delete --domain DOMAIN_NAME --children --snapshotname SNAP_NAME
+
+# Delete external snapshot definition
+rm -v /var/lib/libvirt/qemu/snapshot/DOMAIN_NAME/SNAP_NAME.xml

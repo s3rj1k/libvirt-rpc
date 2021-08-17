@@ -1,0 +1,40 @@
+Function: CloneImage(LeftImagePath string, RightImageName string) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "CloneImage",
+  "params": {
+    "Storage": "images",
+    "LeftImageName": "ubuntu-16.04-template.qcow2",
+    "RightImageName": "new.qcow2"
+  },
+  "id": "03505995-26b7-4184-a240-2ee4f8edd99b"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "CloneImage",
+  "params": {
+    "Storage": "images",
+    "LeftImageName": "ubuntu-16.04-template.qcow2",
+    "RightImageName": "new.qcow2"
+  },
+  "id": "03505995-26b7-4184-a240-2ee4f8edd99b"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "03505995-26b7-4184-a240-2ee4f8edd99b",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "03505995-26b7-4184-a240-2ee4f8edd99b",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

@@ -1,0 +1,10 @@
+edd1386b08a2158dc4208ace018d9beb  etc/qemu/fsfreeze-hook
+64fa1a6d1d374eae72329ee1783ec704  usr/lib/systemd/system/qemu-ga.service
+9976114952d34db20d064cffca7eba52  usr/sbin/qemu-ga
+055002ac0160ef8cb43674bea479593f  usr/share/doc/qemu-guest-agent/changelog.gz
+48d60c3178bcd27c3dab1dc4baf5008a  usr/share/doc/qemu-guest-agent/copyright
+17deff5618bebafce11a3cdfc4eb6549  usr/share/doc/qemu-guest-agent/qapi-schema.json.gz
+c327f24b5ac0c3de9a2c783f0d387851  usr/share/doc/qemu-guest-agent/qemu-ga-ref.html
+a5b42be4562df31d8bd2019f2d6427b7  usr/share/doc/qemu-guest-agent/qemu-ga-ref.txt.gz
+ba75a2b0d846197347df6a13675be782  usr/share/man/man7/qemu-ga-ref.7.gz
+f88bf33cdebeaa5e86b273c9288bf0ee  usr/share/man/man8/qemu-ga.8.gz

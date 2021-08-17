@@ -1,0 +1,268 @@
+Function: Info(Domain string) (InfoResponse, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Info",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "243a718a-2ebb-4e32-8cc8-210c39e8a14b"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Info",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "243a718a-2ebb-4e32-8cc8-210c39e8a14b"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "243a718a-2ebb-4e32-8cc8-210c39e8a14b",
+  "result": {
+    "Name": "ubuntu-16.04",
+    "UUID": "bf88eaaa-5c3b-457a-a56c-685afc268fe3",
+    "Timestamp": 1516887376,
+    "Active": true,
+    "Persistent": true,
+    "Updated": false,
+    "Autostart": false,
+    "State": "DOMAIN_RUNNING",
+    "Reason": "DOMAIN_RUNNING_BOOTED",
+    "NodeFQDN": "wip.s3rj1k.lt",
+    "HypervisorType": "KVM",
+    "Security": "",
+    "SchedulerInfo": [
+      {
+        "ModificationImpact": "DOMAIN_AFFECT_CURRENT",
+        "Type": "",
+        "CPUShares": 1024,
+        "GlobalPeriod": 100000,
+        "GlobalQuota": -1,
+        "VcpuPeriod": 100000,
+        "VcpuQuota": -1,
+        "EmulatorPeriod": 100000,
+        "EmulatorQuota": -1,
+        "IothreadPeriod": 100000,
+        "IothreadQuota": -1,
+        "Weight": 0,
+        "Cap": 0,
+        "Reservation": 0,
+        "Limit": 0,
+        "Shares": 0
+      },
+      {
+        "ModificationImpact": "DOMAIN_AFFECT_CONFIG",
+        "Type": "",
+        "CPUShares": 1024,
+        "GlobalPeriod": 0,
+        "GlobalQuota": 0,
+        "VcpuPeriod": 0,
+        "VcpuQuota": 0,
+        "EmulatorPeriod": 0,
+        "EmulatorQuota": 0,
+        "IothreadPeriod": 0,
+        "IothreadQuota": 0,
+        "Weight": 0,
+        "Cap": 0,
+        "Reservation": 0,
+        "Limit": 0,
+        "Shares": 0
+      }
+    ],
+    "CPU": {
+      "TotalTime": 12676994075,
+      "TotalUser": 1500000000,
+      "TotalSystem": 5120000000,
+      "CurrentVCPUs": 1,
+      "MaximumVCPUs": 4
+    },
+    "VCPU": [
+      {
+        "Num": 0,
+        "State": "VCPU_RUNNING",
+        "Time": 9800000000
+      },
+      {
+        "Num": 1,
+        "State": "VCPU_OFFLINE",
+        "Time": 0
+      },
+      {
+        "Num": 2,
+        "State": "VCPU_OFFLINE",
+        "Time": 0
+      },
+      {
+        "Num": 3,
+        "State": "VCPU_OFFLINE",
+        "Time": 0
+      }
+    ],
+    "Mem": {
+      "Current": 2097152,
+      "Maximum": 4195328,
+      "SwapIn": 0,
+      "SwapOut": 0,
+      "MajorFault": 723,
+      "MinorFault": 296413,
+      "Unused": 1743104,
+      "Available": 1946472,
+      "Usable": 1689256,
+      "Used": 203368,
+      "Rss": 2176728,
+      "LastUpdate": 1517332255,
+      "Period": 3
+    },
+    "Net": [
+      {
+        "MAC": "52:54:00:9a:c9:16",
+        "PVID": "208",
+        "PFName": "enp6s0f0",
+        "VFName": "vf0",
+        "Network": "pf-enp6s0f0",
+        "PCI": {
+          "VFaddr": "0000:06:10.0",
+          "PFaddr": "0000:06:00.0",
+          "VFName": "pci_0000_06_10_0",
+          "PFName": "pci_0000_06_00_0"
+        },
+        "Metadata": {
+          "MaxTxRate": 125,
+          "QoS": 0,
+          "Trust": "off",
+          "SpoofChk": "on",
+          "QueryRss": "off"
+        },
+        "Desc": "Intel Corporation 82599 Ethernet Controller Virtual Function"
+      }
+    ],
+    "BlockParams": [
+      {
+        "ModificationImpact": "DOMAIN_AFFECT_CURRENT",
+        "Weight": 500,
+        "DeviceWeight": "",
+        "DeviceReadIops": "",
+        "DeviceWriteIops": "",
+        "DeviceReadBps": "",
+        "DeviceWriteBps": ""
+      },
+      {
+        "ModificationImpact": "DOMAIN_AFFECT_CONFIG",
+        "Weight": 0,
+        "DeviceWeight": "",
+        "DeviceReadIops": "",
+        "DeviceWriteIops": "",
+        "DeviceReadBps": "",
+        "DeviceWriteBps": ""
+      }
+    ],
+    "Block": [
+      {
+        "Name": "sda",
+        "BackingIndex": 0,
+        "Path": "/var/lib/libvirt/images/ubuntu-16.04.qcow2",
+        "RdReqs": 5809,
+        "RdBytes": 147261440,
+        "RdTimes": 25081277433,
+        "WrReqs": 140,
+        "WrBytes": 2380800,
+        "WrTimes": 171099724786,
+        "FlReqs": 0,
+        "FlTimes": 0,
+        "Errors": 0,
+        "Allocation": 54567239680,
+        "Capacity": 53687091200,
+        "Physical": 1854136320,
+        "BlockIO": [
+          {
+            "ModificationImpact": "DOMAIN_AFFECT_CURRENT",
+            "ReadBytesSec": 0,
+            "ReadBytesSecMax": 0,
+            "ReadBytesSecMaxLength": 0,
+            "ReadIopsSec": 1000,
+            "ReadIopsSecMax": 1100,
+            "ReadIopsSecMaxLength": 15,
+            "SizeIopsSec": 0,
+            "TotalBytesSec": 0,
+            "TotalBytesSecMax": 0,
+            "TotalBytesSecMaxLength": 0,
+            "TotalIopsSec": 0,
+            "TotalIopsSecMax": 0,
+            "TotalIopsSecMaxLength": 0,
+            "WriteBytesSec": 0,
+            "WriteBytesSecMax": 0,
+            "WriteBytesSecMaxLength": 0,
+            "WriteIopsSec": 400,
+            "WriteIopsSecMax": 450,
+            "WriteIopsSecMaxLength": 5,
+            "GroupName": "drive-scsi0-0-0-0"
+          },
+          {
+            "ModificationImpact": "DOMAIN_AFFECT_CONFIG",
+            "ReadBytesSec": 0,
+            "ReadBytesSecMax": 0,
+            "ReadBytesSecMaxLength": 0,
+            "ReadIopsSec": 1000,
+            "ReadIopsSecMax": 1100,
+            "ReadIopsSecMaxLength": 15,
+            "SizeIopsSec": 0,
+            "TotalBytesSec": 0,
+            "TotalBytesSecMax": 0,
+            "TotalBytesSecMaxLength": 0,
+            "TotalIopsSec": 0,
+            "TotalIopsSecMax": 0,
+            "TotalIopsSecMaxLength": 0,
+            "WriteBytesSec": 0,
+            "WriteBytesSecMax": 0,
+            "WriteBytesSecMaxLength": 0,
+            "WriteIopsSec": 400,
+            "WriteIopsSecMax": 450,
+            "WriteIopsSecMaxLength": 5,
+            "GroupName": ""
+          }
+        ],
+        "JobInfo": {
+          "Type": "",
+          "Bandwidth": 0,
+          "Cur": 0,
+          "End": 0
+        }
+      }
+    ],
+    "SnapshotCount": 1,
+    "SnapshotInfo": [
+      {
+        "Name": "snap4",
+        "Parent": "/",
+        "ChildrenCount": 0,
+        "IsCurrent": true,
+        "IsInternal": true,
+        "IsExternal": false,
+        "IsDiskOnly": false,
+        "WasActive": false,
+        "WasInactive": true,
+        "HasMetadata": true,
+        "HasNoMetadata": false,
+        "HasChildren": false,
+        "HasNoChildren": true,
+        "HasNoParents": true,
+        "Error": false,
+        "ErrorMessage": null
+      }
+    ]
+  }
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "243a718a-2ebb-4e32-8cc8-210c39e8a14b",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

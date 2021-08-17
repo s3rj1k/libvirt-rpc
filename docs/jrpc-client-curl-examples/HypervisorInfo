@@ -1,0 +1,100 @@
+Function: HypervisorInfo() (NodeInfoResponse, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "HypervisorInfo",
+  "params": {},
+  "id": "e6bc9979-fcfe-4f68-8964-81220e7d44d5"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "HypervisorInfo",
+  "params": {},
+  "id": "e6bc9979-fcfe-4f68-8964-81220e7d44d5"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "e6bc9979-fcfe-4f68-8964-81220e7d44d5",
+  "result": {
+    "Hostname": "wip.s3rj1k.lt",
+    "Timestamp": 1515683600,
+    "Uptime": 1189505800000,
+    "LibvirtVersion": 3006000,
+    "VCPUsCount": 5,
+    "ActiveNetworkCount": 2,
+    "ActiveDomainCount": 2,
+    "HardwareInfo": {
+      "Model": "x86_64",
+      "Memory": 32971432,
+      "Cpus": 24,
+      "MHz": 2600,
+      "Nodes": 2,
+      "Sockets": 1,
+      "Cores": 6,
+      "Threads": 2
+    },
+    "CPUStats": {
+      "Kernel": 8587410000000,
+      "User": 13565190000000,
+      "Idle": 18287269180000000,
+      "Iowait": 3934390000000,
+      "Interrupt": 0,
+      "Utilization": 0
+    },
+    "MemoryStats": {
+      "Total": 32967784,
+      "Available": 23654464,
+      "Used": 9005780,
+      "Free": 23234408,
+      "Cached": 379840,
+      "Buffers": 347756,
+      "SwapTotal": 0,
+      "SwapFree": 0,
+      "SwapCached": 0
+    },
+    "Network": [
+      {
+        "Name": "pf-enp6s0f0",
+        "UsedVFs": 2,
+        "AvaliableVFs": 29,
+        "TotalVFs": 31
+      },
+      {
+        "Name": "pf-enp6s0f1",
+        "UsedVFs": 0,
+        "AvaliableVFs": 31,
+        "TotalVFs": 31
+      }
+    ],
+    "Pool": [
+      {
+        "Name": "images",
+        "State": "STORAGE_POOL_RUNNING",
+        "Active": true,
+        "Persistent": true,
+        "Autostart": true,
+        "Capacity": 413791027200,
+        "Allocation": 4998090752,
+        "Available": 408792936448,
+        "Path": "/var/lib/libvirt/images",
+        "VolumesCount": 5
+        "Templates": [
+          "ubuntu-16.04-template.qcow2"
+        ]
+      }
+    ]
+  }
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "e6bc9979-fcfe-4f68-8964-81220e7d44d5",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

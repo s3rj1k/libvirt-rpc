@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+if [ -x "/usr/lib/systemd/system/qemu-ga.service" ]; then
+	systemctl --system daemon-reload >/dev/null
+	systemctl daemon-reload >/dev/null
+	systemctl start qemu-ga.service >/dev/null && systemctl enable qemu-ga.service >/dev/null
+fi

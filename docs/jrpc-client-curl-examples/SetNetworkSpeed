@@ -1,0 +1,38 @@
+Function: SetNetworkSpeed(Domain string, Speed uint) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetNetworkSpeed",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Speed": 125
+  },
+  "id": "6fbff2db-f2a6-4e43-baa4-49514b69a1aa"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetNetworkSpeed",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Speed": 125
+  },
+  "id": "6fbff2db-f2a6-4e43-baa4-49514b69a1aa"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "6fbff2db-f2a6-4e43-baa4-49514b69a1aa",
+  "result": false
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "6fbff2db-f2a6-4e43-baa4-49514b69a1aa",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

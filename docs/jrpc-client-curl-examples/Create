@@ -1,0 +1,52 @@
+Function: CreateVM(UUID string, Name string, VCPU int, Memory uint, ImageTemplate string, Network string, MAC string, VLAN uint) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Create",
+  "params": {
+    "UUID": "",
+    "Name": "NewVM",
+    "VCPU": 1,
+    "Memory": 1048576,
+    "Storage": "images",
+    "Template": "ubuntu-16.04-template.qcow2",
+    "Network": "pf-enp6s0f0",
+    "MAC": "52:54:00:9a:c9:01",
+    "VLAN": 220
+  },
+  "id": "829e6d49-53a9-4fda-b728-058c0ca17952"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Create",
+  "params": {
+    "UUID": "",
+    "Name": "NewVM",
+    "VCPU": 1,
+    "Memory": 1048576,
+    "Storage": "images",
+    "Template": "ubuntu-16.04-template.qcow2",
+    "Network": "pf-enp6s0f0",
+    "MAC": "52:54:00:9a:c9:01",
+    "VLAN": 220
+  },
+  "id": "829e6d49-53a9-4fda-b728-058c0ca17952"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "829e6d49-53a9-4fda-b728-058c0ca17952",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "829e6d49-53a9-4fda-b728-058c0ca17952",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

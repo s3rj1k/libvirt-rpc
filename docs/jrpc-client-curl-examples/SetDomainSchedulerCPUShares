@@ -1,0 +1,38 @@
+Function: SetDomainSchedulerCPUShares(Domain string, CPUShares uint64) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetDomainSchedulerCPUShares",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "CPUShares": 2048
+  },
+  "id": "c10be407-c0e8-4f92-9328-7d98775f6788"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetDomainSchedulerCPUShares",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "CPUShares": 2048
+  },
+  "id": "c10be407-c0e8-4f92-9328-7d98775f6788"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "c10be407-c0e8-4f92-9328-7d98775f6788",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "c10be407-c0e8-4f92-9328-7d98775f6788",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

@@ -1,0 +1,40 @@
+Function: SetPVIDForNetworkDevice(Domain string, MAC string, PVID uint) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetPVIDForNetworkDevice",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "MAC": "52:54:00:9a:c9:16",
+    "PVID": 208
+  },
+  "id": "88158bcb-c2cc-4e7c-b0b2-1b77607cd213"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetPVIDForNetworkDevice",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "MAC": "52:54:00:9a:c9:16",
+    "PVID": 208
+  },
+  "id": "88158bcb-c2cc-4e7c-b0b2-1b77607cd213"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "88158bcb-c2cc-4e7c-b0b2-1b77607cd213",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "88158bcb-c2cc-4e7c-b0b2-1b77607cd213",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

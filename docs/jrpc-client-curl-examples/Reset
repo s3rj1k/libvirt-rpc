@@ -1,0 +1,36 @@
+Function: Reset(Domain string) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Reset",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "a0f0b83c-77ed-42cd-99c9-536c0450602f"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Reset",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "a0f0b83c-77ed-42cd-99c9-536c0450602f"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "a0f0b83c-77ed-42cd-99c9-536c0450602f",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "a0f0b83c-77ed-42cd-99c9-536c0450602f",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

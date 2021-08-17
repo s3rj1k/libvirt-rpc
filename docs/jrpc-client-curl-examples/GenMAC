@@ -1,0 +1,32 @@
+Function: GenMAC() string
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "GenMAC",
+  "params": {},
+  "id": "38276e9c-018d-498e-95af-ad8c019a000d"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "GenMAC",
+  "params": {},
+  "id": "38276e9c-018d-498e-95af-ad8c019a000d"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "38276e9c-018d-498e-95af-ad8c019a000d",
+  "result": "52:54:00:09:7d:97"
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "38276e9c-018d-498e-95af-ad8c019a000d",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+rm -f /usr/lib/systemd/system/qemu-ga.service
+systemctl --system daemon-reload >/dev/null
+systemctl daemon-reload >/dev/null

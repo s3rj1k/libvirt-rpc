@@ -1,0 +1,31 @@
+Function: GenUUID() string
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "GenUUID",
+  "params": {},
+  "id": "0d15ea5e-dead-dead-dead-defec8eddead"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "GenUUID",
+  "params": {},
+  "id": "0d15ea5e-dead-dead-dead-defec8eddead"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+{
+  "jsonrpc": "2.0",
+  "id": "0d15ea5e-dead-dead-dead-defec8eddead",
+  "result": "4de2b4e6-fd7b-4863-811f-650e91cc3810"
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "0d15ea5e-dead-dead-dead-defec8eddead",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

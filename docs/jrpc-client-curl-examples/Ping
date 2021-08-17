@@ -1,0 +1,31 @@
+Function: Ping() bool
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Ping",
+  "params": {},
+  "id": "fee49eb3-905c-4953-8953-6d52269e0f12"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Ping",
+  "params": {},
+  "id": "fee49eb3-905c-4953-8953-6d52269e0f12"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+{
+  "jsonrpc": "2.0",
+  "id": "fee49eb3-905c-4953-8953-6d52269e0f12",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "fee49eb3-905c-4953-8953-6d52269e0f12",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

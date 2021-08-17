@@ -1,0 +1,38 @@
+Function: SetMemory(Domain string, Memory uint64) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetMemory",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Memory": 2097152
+  },
+  "id": "5b3c9ac0-e0cf-11e7-8f1a-0800200c9a66"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetMemory",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Memory": 2097152
+  },
+  "id": "5b3c9ac0-e0cf-11e7-8f1a-0800200c9a66"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "5b3c9ac0-e0cf-11e7-8f1a-0800200c9a66",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "5b3c9ac0-e0cf-11e7-8f1a-0800200c9a66",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

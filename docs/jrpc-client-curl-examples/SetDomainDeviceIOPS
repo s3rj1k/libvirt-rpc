@@ -1,0 +1,42 @@
+Function: SetDomainDeviceIOPS(Domain string, Device string, Read uint64, Write uint64) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetDomainDeviceIOPS",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Device": "sda",
+    "Read": 1000,
+    "Write": 500
+  },
+  "id": "61ef801c-8b4c-4c6a-a567-f577c632935e"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetDomainDeviceIOPS",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Device": "sda",
+    "Read": 1000,
+    "Write": 500
+  },
+  "id": "61ef801c-8b4c-4c6a-a567-f577c632935e"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "61ef801c-8b4c-4c6a-a567-f577c632935e",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "61ef801c-8b4c-4c6a-a567-f577c632935e",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

@@ -1,0 +1,36 @@
+Function: Destroy(Domain string) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Destroy",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "b629da56-4009-4a1f-b8c0-cf73e111a038"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Destroy",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "b629da56-4009-4a1f-b8c0-cf73e111a038"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "b629da56-4009-4a1f-b8c0-cf73e111a038",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "b629da56-4009-4a1f-b8c0-cf73e111a038",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

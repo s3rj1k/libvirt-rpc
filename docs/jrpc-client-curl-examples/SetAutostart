@@ -1,0 +1,38 @@
+Function: SetAutostart(Domain string, Autostart bool) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetAutostart",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Autostart": false
+  },
+  "id": "2b5e4900-7cd8-44d8-9fd9-b26f4c52519d"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetAutostart",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Autostart": false
+  },
+  "id": "2b5e4900-7cd8-44d8-9fd9-b26f4c52519d"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "2b5e4900-7cd8-44d8-9fd9-b26f4c52519d",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "2b5e4900-7cd8-44d8-9fd9-b26f4c52519d",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

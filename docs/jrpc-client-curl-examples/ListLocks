@@ -1,0 +1,35 @@
+ListLocks() []string
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "ListLocks",
+  "params": {},
+  "id": "a4e21d4b-6642-4c90-bfdf-fdfb6d0c7bc5"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "ListLocks",
+  "params": {},
+  "id": "a4e21d4b-6642-4c90-bfdf-fdfb6d0c7bc5"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "a4e21d4b-6642-4c90-bfdf-fdfb6d0c7bc5",
+  "result": [
+    "ubuntu-16.04",
+    "zaebuntu-16.04"
+  ]
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "a4e21d4b-6642-4c90-bfdf-fdfb6d0c7bc5",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

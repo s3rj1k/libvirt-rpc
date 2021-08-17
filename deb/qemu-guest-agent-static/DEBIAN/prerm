@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+
+if [ -x "/usr/lib/systemd/system/qemu-ga.service" ]; then
+	systemctl stop qemu-ga.service >/dev/null
+	systemctl disable qemu-ga.service >/dev/null
+fi

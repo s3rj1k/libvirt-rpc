@@ -1,0 +1,107 @@
+<domain type='kvm'>
+  <name>ubuntu-16.04</name>
+  <uuid>bf88eaaa-5c3b-457a-a56c-685afc268fe3</uuid>
+  <metadata>
+    <my:custom xmlns:my="1c5537ac-8c84-4313-a8e7-9dd8d45ac7ed">
+      <my:network type="max_tx_rate">100</my:network>
+      <my:network type="trust">off</my:network>
+      <my:network type="spoofchk">on</my:network>
+      <my:network type="query_rss">off</my:network>
+      <my:network type="qos">0</my:network>
+    </my:custom>
+  </metadata>
+  <memory unit='KiB'>4194304</memory>
+  <currentMemory unit='KiB'>1048576</currentMemory>
+  <vcpu placement='static' current='1'>4</vcpu>
+  <cputune>
+    <shares>1024</shares>
+  </cputune>
+  <sysinfo type='smbios'>
+    <bios>
+      <entry name='vendor'>KVM</entry>
+    </bios>
+    <system>
+      <entry name='manufacturer'>KVM</entry>
+      <entry name='product'>VM</entry>
+    </system>
+    <baseBoard>
+      <entry name='manufacturer'>KVM</entry>
+      <entry name='product'>VM</entry>
+    </baseBoard>
+  </sysinfo>
+  <os>
+    <type arch='x86_64'>hvm</type>
+    <boot dev='hd'/>
+    <smbios mode='sysinfo'/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+  </features>
+  <cpu mode='host-model' check='partial'>
+    <model fallback='allow'/>
+  </cpu>
+  <clock offset='utc'>
+    <timer name='rtc' tickpolicy='catchup'/>
+    <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+  </clock>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <pm>
+    <suspend-to-mem enabled='yes'/>
+    <suspend-to-disk enabled='no'/>
+  </pm>
+  <devices>
+    <emulator>/usr/bin/kvm-spice</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' cache='directsync' error_policy='enospace' rerror_policy='stop' discard='unmap'/>
+      <source file='/var/lib/libvirt/images/ubuntu-16.04.qcow2'/>
+      <target dev='sda' bus='scsi'/>
+      <iotune>
+        <read_iops_sec>1000</read_iops_sec>
+        <write_iops_sec>400</write_iops_sec>
+        <read_iops_sec_max>1100</read_iops_sec_max>
+        <write_iops_sec_max>450</write_iops_sec_max>
+        <read_iops_sec_max_length>15</read_iops_sec_max_length>
+        <write_iops_sec_max_length>5</write_iops_sec_max_length>
+      </iotune>
+    </disk>
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='/var/lib/libvirt/cloud-init/cidata.iso'/>
+      <target dev='hda' bus='ide'/>
+      <readonly/>
+    </disk>
+    <controller type='scsi' index='0' model='virtio-scsi'/>
+    <controller type='usb' index='0' model='ich9-ehci1'/>
+    <controller type='usb' index='0' model='ich9-uhci1'>
+      <master startport='0'/>
+    </controller>
+    <controller type='pci' index='0' model='pci-root'/>
+    <controller type='ide' index='0'/>
+    <controller type='virtio-serial' index='0'/>
+    <interface type='network'>
+      <mac address='52:54:00:9a:c9:16'/>
+      <source network='pf-enp6s0f0'/>
+      <vlan>
+        <tag id='208'/>
+      </vlan>
+    </interface>
+    <serial type='pty'>
+      <target port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+    <channel type='unix'>
+      <target type='virtio' name='org.qemu.guest_agent.0'/>
+    </channel>
+    <input type='keyboard' bus='virtio'/>
+    <input type='mouse' bus='virtio'/>
+    <memballoon model='virtio'>
+      <stats period='3'/>
+    </memballoon>
+  </devices>
+</domain>

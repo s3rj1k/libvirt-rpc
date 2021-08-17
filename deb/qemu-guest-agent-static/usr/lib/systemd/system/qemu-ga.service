@@ -1,0 +1,14 @@
+[Unit]
+Description=QEMU Guest Agent
+ConditionPathExists=/dev/virtio-ports/org.qemu.guest_agent.0
+
+[Service]
+Restart=always
+RestartSec=3
+Type=forking
+PIDFile=/var/run/qemu-ga.pid
+ExecStart=/usr/sbin/qemu-ga -d -f /var/run/qemu-ga.pid
+StandardOutput=syslog
+
+[Install]
+WantedBy=multi-user.target

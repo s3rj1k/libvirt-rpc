@@ -1,0 +1,38 @@
+Function: MakeSnapshot(Domain string, Name string) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "MakeSnapshot",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Name": "snap4"
+  },
+  "id": "a8b3df1b-b486-479c-8650-168f70beee71"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "MakeSnapshot",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Name": "snap4"
+  },
+  "id": "a8b3df1b-b486-479c-8650-168f70beee71"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "a8b3df1b-b486-479c-8650-168f70beee71",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "a8b3df1b-b486-479c-8650-168f70beee71",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

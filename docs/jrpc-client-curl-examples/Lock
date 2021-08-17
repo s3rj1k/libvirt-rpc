@@ -1,0 +1,36 @@
+Function: Lock(Domain string) bool
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Lock",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "6c471793-e774-48d0-8977-4a5d4e925d79"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "Lock",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "6c471793-e774-48d0-8977-4a5d4e925d79"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "6c471793-e774-48d0-8977-4a5d4e925d79",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "6c471793-e774-48d0-8977-4a5d4e925d79",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

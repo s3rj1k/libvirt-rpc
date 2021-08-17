@@ -1,0 +1,38 @@
+Function: SetMemoryStatsPeriod(Domain string, Period int) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetMemoryStatsPeriod",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Period": 3
+  },
+  "id": "367e5ab8-c331-492c-8263-40bf3b05da68"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetMemoryStatsPeriod",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Period": 3
+  },
+  "id": "367e5ab8-c331-492c-8263-40bf3b05da68"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "367e5ab8-c331-492c-8263-40bf3b05da68",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "367e5ab8-c331-492c-8263-40bf3b05da68",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

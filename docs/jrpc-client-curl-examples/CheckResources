@@ -1,0 +1,44 @@
+Function: CheckResources(Name string, VCPU int, Memory uint, Storage string, Network string) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "CheckResources",
+  "params": {
+    "Name": "NewVM",
+    "VCPU": 1,
+    "Memory": 1048576,
+    "Storage": "images",
+    "Network": "pf-enp6s0f0"
+  },
+  "id": "829e6d49-53a9-4fda-b728-058c0ca17952"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "CheckResources",
+  "params": {
+    "Name": "NewVM",
+    "VCPU": 1,
+    "Memory": 1048576,
+    "Storage": "images",
+    "Network": "pf-enp6s0f0"
+  },
+  "id": "829e6d49-53a9-4fda-b728-058c0ca17952"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "829e6d49-53a9-4fda-b728-058c0ca17952",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "829e6d49-53a9-4fda-b728-058c0ca17952",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

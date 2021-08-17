@@ -1,0 +1,38 @@
+Function: SetMaxMemory(Domain string, Memory uint64) (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetMaxMemory",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Memory": 4194304
+  },
+  "id": "daeef7f3-2323-4595-a531-8300d42cd211"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "SetMaxMemory",
+  "params": {
+    "Domain": "ubuntu-16.04",
+    "Memory": 4194304
+  },
+  "id": "daeef7f3-2323-4595-a531-8300d42cd211"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "daeef7f3-2323-4595-a531-8300d42cd211",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "daeef7f3-2323-4595-a531-8300d42cd211",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

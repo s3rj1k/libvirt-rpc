@@ -1,0 +1,36 @@
+Function: UnLock(Domain string) bool
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "UnLock",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "c72d7db8-d6cc-4ca8-a80f-35b1b1b2be11"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "UnLock",
+  "params": {
+    "Domain": "ubuntu-16.04"
+  },
+  "id": "c72d7db8-d6cc-4ca8-a80f-35b1b1b2be11"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "c72d7db8-d6cc-4ca8-a80f-35b1b1b2be11",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "c72d7db8-d6cc-4ca8-a80f-35b1b1b2be11",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

@@ -1,0 +1,32 @@
+Function: RefreshAllStorgePools() (bool, error)
+
+curl -s -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "RefreshAllStorgePools",
+  "params": {},
+  "id": "aa1b98bc-d8b8-49d2-a31e-680efaab2e3b"
+}' 'http://127.0.0.1:8888/jrpc' | jq -C
+
+curl -s --unix-socket /tmp/libvirt-jrpc.sock -XPOST -H "Content-type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "method": "RefreshAllStorgePools",
+  "params": {},
+  "id": "aa1b98bc-d8b8-49d2-a31e-680efaab2e3b"
+}' 'http://localhost/jrpc' | jq -C
+
+Output:
+
+{
+  "jsonrpc": "2.0",
+  "id": "aa1b98bc-d8b8-49d2-a31e-680efaab2e3b",
+  "result": true
+}
+
+{
+  "jsonrpc": "2.0",
+  "id": "aa1b98bc-d8b8-49d2-a31e-680efaab2e3b",
+  "error": {
+    "code": -32603,
+    "message": "error message"
+  }
+}

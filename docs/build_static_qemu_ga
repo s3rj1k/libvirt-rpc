@@ -1,0 +1,37 @@
+wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install
+chmod +x alpine-chroot-install
+sudo ./alpine-chroot-install
+
+/alpine/enter-chroot
+
+wget https://github.com/qemu/qemu/archive/v2.11.0.tar.gz
+tar xvzf v2.11.0.tar.gz
+
+cd qemu-2.11.0/
+mkdir build
+cd build
+
+apk add python2 zlib-dev glib-static glib-dev pixman-dev linux-headers musl-dev
+
+../configure --audio-drv-list= \
+  --disable-bluez \
+  --disable-brlapi \
+  --disable-bsd-user \
+  --disable-gtk \
+  --disable-linux-user \
+  --disable-opengl \
+  --disable-sdl \
+  --disable-spice \
+  --disable-system \
+  --disable-virglrenderer \
+  --disable-vnc \
+  --disable-vte \
+  --disable-werror \
+  --enable-guest-agent \
+  --static \
+  --prefix=
+
+make
+
+ldd ./qemu-ga
+./qemu-ga -V
